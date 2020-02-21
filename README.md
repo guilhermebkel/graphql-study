@@ -37,7 +37,7 @@ type User {
 	childrenName: [String]
 }
 
-# When using the exclamation after a scalar type (Ex: String!), we're saying that this field must be provided
+# When using the exclamation after a scalar type (Ex: String!), we're saying that this field must be provided.
 # When using the scalar type between brackets (Ex: [String]), we're specifying that's a array of the given scalar type.
 ```
 
