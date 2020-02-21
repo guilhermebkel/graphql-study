@@ -4,6 +4,7 @@ A example of a web application made with graphql
 ## Summary
 
 - [ Introduction to GraphQL ](#introduction-to-graphql)
+- [ Working with types inf GraphQL](#working-with-types-in-graphql)
 
 <a name="introduction-to-graphql"></a>
 
@@ -20,3 +21,28 @@ In order to work with this new kinda way to get data, when using GraphQL we have
 - Typedefs: We use them to describe the format of the data that exists on the nodes.
 
 - Resolvers: All methods and business logics to get the needed data.
+
+<a name="working-with-types-in-graphql"></a>
+
+## Working with types in GraphQL
+
+In GraphQL we have common types that we can use by default (Scalar Types) for some data response, such as: **Int**, **Float**, **String**, **Boolean**, **ID**.
+
+Usually we define the schema type that way:
+```graphql
+type User {
+	id: ID
+	name: String!
+	email: String!
+	childrenName: [String]
+}
+
+# When using the exclamation after a scalar type (Ex: String!), we're saying that this field must be provided
+# When using the scalar type between brackets (Ex: [String]), we're specifying that's a array of the given scalar type.
+```
+
+If we want to add a custom scalar type, we need to do the following on our **TypeDefs**:
+```graphql
+scalar Date # Creates a new scalar of type Date
+```
+
