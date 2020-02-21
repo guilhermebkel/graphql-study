@@ -3,6 +3,11 @@ const { ApolloServer, gql } = require("apollo-server")
 const typeDefs = gql`
 	scalar Date
 
+	type Produto {
+		name: String!
+		preco: Float!
+	}
+
 	type User {
 		id: ID
 		name: String!
