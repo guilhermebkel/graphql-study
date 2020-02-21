@@ -1,5 +1,5 @@
 # graphql-application
-A example of a web application made with graphql
+An example of a web application made with graphql
 
 ## Summary
 
