@@ -4,7 +4,8 @@ An example of a web application made with graphql
 ## Summary
 
 - [ Introduction to GraphQL ](#introduction-to-graphql)
-- [ Working with types inf GraphQL](#working-with-types-in-graphql)
+- [ Working with types in GraphQL](#working-with-types-in-graphql)
+- [ Querying data in GraphQL](#querying-data-in-graphql)
 
 <a name="introduction-to-graphql"></a>
 
@@ -46,3 +47,103 @@ If we want to add a custom scalar type, we need to do the following on our **Typ
 scalar Date # Creates a new scalar of type Date
 ```
 
+<a name="querying-data-in-graphql"></a>
+
+## Querying data in GraphQL
+Supposing that you've defined the following types:
+```graphql
+type Profile {
+	id: Int
+	type: String
+}
+
+type User {
+	id: Int
+	name: String!
+	email: String!
+	profile: Profile
+}
+
+type Query {
+	users: [User]
+}
+```
+
+The following resolver for **Query**:
+```js
+users() {
+	return [
+		{
+			id: 1,
+			name: "Guilherme",
+			email: "guilhermebromonschenkel@gmail.com",
+			profile_id: 1
+		},
+		{
+			id: 2,
+			name: "Mota",
+			email: "mota@guilherr.me",
+			profile_id: 2
+		}
+	]
+}
+```
+
+And the following resolver for **User**:
+```js
+profile(user) {
+	const profiles = [
+		{
+			id: 1,
+			type: "common"
+		},
+		{
+			id: 2,
+			type: "admin"
+		}
+	]
+
+	const profile = profiles.find(profile => profile.id === user.profile_id)
+
+	return profile
+}
+```
+
+When you get into the playground mode, you'll be able to query this data that way:
+```graphql
+users {
+	id
+	name
+	email
+	profile {
+		id
+		type
+	}
+}
+```
+
+And you will receive:
+```json
+{
+	"users": [
+		{
+			"id": 1,
+			"name": "Guilherme",
+			"email": "guilhermebromonschenkel@gmail.com",
+			"profile": {
+				"id": 1,
+				"type": "common"
+			}
+		},
+		{
+			"id": 2,
+			"name": "Mota",
+			"email": "mota@guilherr.me",
+			"profile": {
+				"id": 2,
+				"type": "admin"
+			}
+		}
+	]
+}
+```

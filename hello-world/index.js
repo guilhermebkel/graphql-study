@@ -1,28 +1,47 @@
 const { ApolloServer, gql } = require("apollo-server")
 
+const profiles = [
+	{
+		id: 1,
+		type: "common"
+	},
+	{
+		id: 2,
+		type: "administrator"
+	}
+]
+
 const users = [
 	{
 		id: 1,
 		name: "Mota",
 		email: "mota@guilherr.me",
-		age: 20
+		age: 20,
+		profile_id: 1
 	},
 	{
 		id: 2,
 		name: "Guilherme",
 		email: "guilhermebromonschenkel@gmail.com",
-		age: 22
+		age: 22,
+		profile_id: 2
 	},
 	{
 		id: 3,
 		name: "Daniella",
 		email: "dani@gmail.com",
-		age: 19
+		age: 19,
+		profile_id: 1
 	}
 ]
 
 const typeDefs = gql`
 	scalar Date
+
+	type Profile {
+		id: ID
+		type: String
+	}
 
 	type Product {
 		name: String!
@@ -38,6 +57,7 @@ const typeDefs = gql`
 		age: Int
 		income: Float
 		premium: Boolean
+		profile: Profile
 	}
 
 	# API Entry Points
@@ -48,6 +68,9 @@ const typeDefs = gql`
 		spotlightProduct: Product
 		lotteryNumbers: [Int!]!
 		users: [User!]!
+		user(id: ID): User
+		profiles: [Profile!]!
+		profile(id: ID): Profile
 	}
 `
 
@@ -65,6 +88,10 @@ const resolvers = {
 	User: {
 		income(user) {
 			return user.totalIncome
+		},
+		profile(user) {
+			const selectedProfile = profiles.find(profile => profile.id == user.profile_id)
+			return selectedProfile
 		}
 	},
 
@@ -103,6 +130,17 @@ const resolvers = {
 		},
 		users() {
 			return users
+		},
+		user(_, { id }) {
+			const selectedUser = users.find(user => user.id == id)
+			return selectedUser
+		},
+		profiles() {
+			return profiles
+		},
+		profile(_, { id }) {
+			const selectedProfile = profiles.find(profile => profile.id == id)
+			return selectedProfile
 		}
 	}
 }
