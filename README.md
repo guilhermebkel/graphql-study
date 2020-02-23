@@ -6,6 +6,7 @@ An example of a web application made with graphql
 - [ Introduction to GraphQL ](#introduction-to-graphql)
 - [ Working with types in GraphQL](#working-with-types-in-graphql)
 - [ Querying data in GraphQL](#querying-data-in-graphql)
+- [ Querying batch data in GraphQL](#querying-batch-data-in-graphql)
 
 <a name="introduction-to-graphql"></a>
 
@@ -111,13 +112,15 @@ profile(user) {
 
 When you get into the playground mode, you'll be able to query this data that way:
 ```graphql
-users {
-	id
-	name
-	email
-	profile {
+{
+	users {
 		id
-		type
+		name
+		email
+		profile {
+			id
+			type
+		}
 	}
 }
 ```
@@ -145,5 +148,42 @@ And you will receive:
 			}
 		}
 	]
+}
+```
+
+<a name="querying-batch-data-in-graphql"></a>
+
+## Querying batch data in GraphQL
+
+As shown above, when querying data in GraphQL we have to specify the data we need from the node (what means we can not query everything by default).
+
+In order to make query of bunch data, we need to create **Fragments**.
+
+**Fragments** are well defined bunch of data mapped by a name given by us in order to get them (it is like a view we commonly use on relational databases).
+
+So, if we have the following type (supposing the resolver is already done):
+```graphql
+type User {
+	id: Int
+	name: String
+	email: String
+}
+```
+
+And I create the following fragment:
+```graphql
+fragment fullUserData on User {
+	id
+	name
+	email
+}
+```
+
+In the end, I'll be able to get all the fragment data by making the following query:
+```graphql
+{
+	users {
+		...fullUserData
+	}
 }
 ```
