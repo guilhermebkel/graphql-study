@@ -7,6 +7,7 @@ An example of a web application made with graphql
 - [ Working with types in GraphQL](#working-with-types-in-graphql)
 - [ Querying data in GraphQL](#querying-data-in-graphql)
 - [ Querying batch data in GraphQL](#querying-batch-data-in-graphql)
+- [ Basic folder structure ](#basic-folder-structure)
 
 <a name="introduction-to-graphql"></a>
 
@@ -186,4 +187,24 @@ In the end, I'll be able to get all the fragment data by making the following qu
 		...fullUserData
 	}
 }
+```
+
+<a name="basic-folder-structure"></a>
+
+## Basic folder structure
+Below you're able to see the basic folder structuring for GraphQL projects. Usually the "index" file export all of the files in its same folder level.
+```
+src
+│
+└───schemas
+│   │	index.graphql
+│   │	user.graphql
+│   │	query.graphql
+│   ...
+└───resolvers
+│   │	index.js
+│   │	user.js
+│   │	query.js
+|   ...
+...
 ```
