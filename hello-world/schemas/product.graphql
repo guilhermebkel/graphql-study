@@ -1,6 +1,0 @@
-type Product {
-	name: String!
-	price: Float!
-	discount: Float
-	priceWithDiscount: Float
-}

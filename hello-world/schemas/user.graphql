@@ -9,6 +9,12 @@ enum UserStatus {
 	BLOCKED
 }
 
+input UserInput {
+	name: String
+	email: String
+	age: Int
+}
+
 type User {
 	id: ID
 	name: String!

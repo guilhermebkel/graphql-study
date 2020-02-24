@@ -1,9 +1,4 @@
 type Query {
-	helloWorld: String
-	currentTime: Date
-	loggedUser: User
-	spotlightProduct: Product
-	lotteryNumbers: [Int!]!
 	users: [User!]!
 	user(id: ID): User
 	profiles: [Profile!]!

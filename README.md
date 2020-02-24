@@ -198,16 +198,26 @@ Below you're able to see the basic folder structuring for GraphQL projects. Usua
 src
 │
 └───schemas
-│   │	index.graphql
-│   │	user.graphql
-│   │	query.graphql
-│   │	mutation.graphql
+│   │   index.graphql
+│   │   user.graphql
+│   │   query.graphql
+│   │   mutation.graphql
 │   ...
+│
 └───resolvers
-│   │	index.js
-│   │	user.js
-│   │	query.js
-│   │	mutation.js
+│   │
+│   └───mutation
+│   │   │   index.js
+│   │   │   user.js
+│   │   ...
+│   │
+│   └───query
+│   │   │   index.js
+│   │   │   user.js
+│   │   ...
+│   │	
+│   │   index.js
+│   │   user.js
 |   ...
 ...
 ```

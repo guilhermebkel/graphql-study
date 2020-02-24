@@ -1,7 +1,7 @@
-let { users, nextId } = require("../database/mock")
+let { users, nextId } = require("../../database/mock")
 
 module.exports = {
-	newUser(_, { name, email, age }) {
+	newUser(_, { data: { name, email, age } }) {
 		const emailExists = users.some(user => user.email === email)
 
 		if (emailExists) {
