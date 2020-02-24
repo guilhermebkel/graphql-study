@@ -1,3 +1,5 @@
 const server = require("./lib/server")
 
-server.start()
+module.exports.boot = async function() {
+	await server.start()
+}
