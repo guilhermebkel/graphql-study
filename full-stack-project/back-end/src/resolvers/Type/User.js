@@ -1,11 +1,11 @@
-// const { profiles } = require("../database/mock")
+const database = require("../../lib/database")
 
 module.exports = {
-	income(user) {
-		return user.totalIncome
-	},
-	profile(user) {
-		const selectedProfile = profiles.find(profile => profile.id == user.profile_id)
-		return selectedProfile
+	async profiles(user) {
+		const profiles = await database("profiles")
+			.join("users_profiles", "profiles.id", "users_profiles.profile_id")
+			.where({ user_id: user.id })
+
+			return profiles
 	}
 }

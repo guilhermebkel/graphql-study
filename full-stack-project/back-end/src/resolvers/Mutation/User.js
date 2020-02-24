@@ -1,31 +1,13 @@
 // let { users, nextId } = require("../../database/mock")
 
 module.exports = {
-	newUser(_, { data: { name, email, age } }) {
-		const emailExists = users.some(user => user.email === email)
-
-		if (emailExists) {
-			throw new Error("Email already exists")
-		}
-
-		const newUser = {
-			 id: nextId(),
-			 name,
-			 email,
-			 age,
-			 profile_id: 1,
-			 status: "ACTIVE"
-		 }
-
-		 users.push(newUser)
-
-		 return newUser
+	createUser(_, { data: { name, email, age } }) {
+		// TODO
 	},
 	deleteUser(_, { id }) {
-		const deletedUser = users.find(user => user.id == id)
-
-		users.filter(user => user.id !== id)
-
-		return deletedUser
+		// TODO
+	},
+	changeUser(_, { data: { name, email, age } }) {
+		// TODO
 	}
 }

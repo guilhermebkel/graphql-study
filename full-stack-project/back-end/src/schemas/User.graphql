@@ -21,6 +21,11 @@ input UserFilter {
 	email: String
 }
 
+input ProfileInput {
+	name: String
+	label: String
+}
+
 input ProfileFilter {
 	id: Int
 	name: String
@@ -33,6 +38,6 @@ type User {
 	age: Int
 	income: Float
 	premium: Boolean
-	profile: Profile
+	profiles: [Profile]
 	userStatus: UserStatus
 }
