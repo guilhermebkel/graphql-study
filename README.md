@@ -4,11 +4,11 @@ An example of a web application made with graphql
 ## Summary
 
 - [ Introduction to GraphQL ](#introduction-to-graphql)
-- [ Working with types in GraphQL](#working-with-types-in-graphql)
-- [ Querying data in GraphQL](#querying-data-in-graphql)
-- [ Querying batch data in GraphQL](#querying-batch-data-in-graphql)
+- [ Working with types](#working-with-types)
+- [ Querying data](#querying-data)
+- [ Querying batch data](#querying-batch-data)
 - [ Basic folder structure ](#basic-folder-structure)
-- [ Changing data in GraphQL](#changing-data-in-graphql)
+- [ Changing data](#changing-data)
 
 <a name="introduction-to-graphql"></a>
 
@@ -26,7 +26,7 @@ In order to work with this new kinda way to get data, when using GraphQL we have
 
 - Resolvers: All methods and business logics to get the needed data.
 
-<a name="working-with-types-in-graphql"></a>
+<a name="working-with-types"></a>
 
 ## Working with types in GraphQL
 
@@ -50,7 +50,7 @@ If we want to add a custom scalar type, we need to do the following on our **Typ
 scalar Date # Creates a new scalar of type Date
 ```
 
-<a name="querying-data-in-graphql"></a>
+<a name="querying-data"></a>
 
 ## Querying data in GraphQL
 Supposing that you've defined the following types:
@@ -153,7 +153,7 @@ And you will receive:
 }
 ```
 
-<a name="querying-batch-data-in-graphql"></a>
+<a name="querying-batch-data"></a>
 
 ## Querying batch data in GraphQL
 
@@ -222,7 +222,7 @@ src
 ...
 ```
 
-<a name="changing-data-in-graphql"></a>
+<a name="changing-data"></a>
 
 ## Changing data in GraphQL
 Since we use the **query** method to fetch data in GraphQL, we can modify data by using the **mutation** method.
