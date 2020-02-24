@@ -199,25 +199,28 @@ src
 │
 └───schemas
 │   │   index.graphql
-│   │   user.graphql
-│   │   query.graphql
-│   │   mutation.graphql
+│   │   User.graphql
+│   │   Query.graphql
+│   │   Mutation.graphql
 │   ...
 │
 └───resolvers
 │   │
-│   └───mutation
+│   └───Mutation
 │   │   │   index.js
-│   │   │   user.js
+│   │   │   User.js
 │   │   ...
 │   │
-│   └───query
+│   └───Query
 │   │   │   index.js
-│   │   │   user.js
+│   │   │   User.js
 │   │   ...
-│   │	
+│   │
+│   └───Type
+│   │   │   User.js
+│   │   ...
+│   │
 │   │   index.js
-│   │   user.js
 |   ...
 ...
 ```
