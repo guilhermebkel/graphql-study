@@ -28,7 +28,7 @@ In order to work with this new kinda way to get data, when using GraphQL we have
 
 <a name="working-with-types"></a>
 
-## Working with types in GraphQL
+## Working with types
 
 In GraphQL we have common types that we can use by default (Scalar Types) for some data response, such as: **Int**, **Float**, **String**, **Boolean**, **ID**.
 
@@ -52,7 +52,7 @@ scalar Date # Creates a new scalar of type Date
 
 <a name="querying-data"></a>
 
-## Querying data in GraphQL
+## Querying data
 Supposing that you've defined the following types:
 ```graphql
 type Profile {
@@ -155,9 +155,9 @@ And you will receive:
 
 <a name="querying-batch-data"></a>
 
-## Querying batch data in GraphQL
+## Querying batch data
 
-As shown above, when querying data in GraphQL we have to specify the data we need from the node (what means we can not query everything by default).
+As shown above, when querying data we have to specify the data we need from the node (what means we can not query everything by default).
 
 In order to make query of bunch data, we need to create **Fragments**.
 
@@ -224,7 +224,7 @@ src
 
 <a name="changing-data"></a>
 
-## Changing data in GraphQL
-Since we use the **query** method to fetch data in GraphQL, we can modify data by using the **mutation** method.
+## Changing data
+Since we use the **query** method to fetch data, we can modify data by using the **mutation** method.
 
 So, the same way we create a schema and resolver for **query**, we need to create a new one for **mutation**. The difference is that you will change data on the last one and fetch data on the other.
