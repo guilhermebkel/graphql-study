@@ -1,6 +1,6 @@
 type Query {
 	users: [User!]!
-	user(id: ID): User
+	user(filter: UserFilter!): User
 	profiles: [Profile!]!
-	profile(id: ID): Profile
+	profile(filter: ProfileFilter!): Profile
 }

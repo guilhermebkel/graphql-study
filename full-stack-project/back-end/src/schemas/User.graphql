@@ -1,6 +1,7 @@
 type Profile {
-	id: ID
-	type: String
+	id: Int
+	name: String
+	label: String
 }
 
 enum UserStatus {
@@ -15,8 +16,18 @@ input UserInput {
 	age: Int
 }
 
+input UserFilter {
+	id: Int
+	email: String
+}
+
+input ProfileFilter {
+	id: Int
+	name: String
+}
+
 type User {
-	id: ID
+	id: Int
 	name: String!
 	email: String!
 	age: Int

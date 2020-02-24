@@ -1,11 +1,24 @@
-// const { users } = require("../../database/mock")
+const database = require("../../lib/database")
 
 module.exports = {
-	users() {
+	async users() {
+		const users = await database("users")
+
 		return users
 	},
-	user(_, { id }) {
-		const selectedUser = users.find(user => user.id == id)
-		return selectedUser
+	async user(_, { filter }) {
+		if (!filter) {
+			return null
+		}
+
+		const { id, email } = filter
+
+		if (id) {
+			return await database("users").where({ id }).first()
+		} else if (email) {
+			return await database("users").where({ email }).first()
+		} else {
+			return null
+		}
 	}
 }

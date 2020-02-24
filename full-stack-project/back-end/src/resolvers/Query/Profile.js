@@ -6,8 +6,19 @@ module.exports = {
 
 		return profiles
 	},
-	profile(_, { id }) {
-		const selectedProfile = profiles.find(profile => profile.id == id)
-		return selectedProfile
+	async profile(_, { filter }) {
+		if (!filter) {
+			return null
+		}
+
+		const { id, name } = filter
+
+		if (id) {
+			return await database("profiles").where({ id }).first()
+		} else if (name) {
+			return await database("profiles").where({ name }).first()
+		} else {
+			return null
+		}
 	}
 }

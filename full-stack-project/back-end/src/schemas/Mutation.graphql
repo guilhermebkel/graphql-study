@@ -1,4 +1,4 @@
 type Mutation {
 	newUser(data: UserInput!): User!
-	deleteUser(id: ID): User!
+	deleteUser(id: Int): User!
 }

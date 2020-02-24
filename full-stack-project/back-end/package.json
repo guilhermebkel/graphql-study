@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --ext js,graphql",
-    "migration": "knex migrate:latest"
+    "migration": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
   },
   "keywords": [],
   "author": "",
