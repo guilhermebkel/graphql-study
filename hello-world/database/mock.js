@@ -1,3 +1,7 @@
+let id = 1
+
+const nextId = () => id++
+
 const profiles = [
 	{
 		id: 1,
@@ -11,7 +15,7 @@ const profiles = [
 
 const users = [
 	{
-		id: 1,
+		id: nextId(),
 		name: "Mota",
 		email: "mota@guilherr.me",
 		age: 20,
@@ -19,7 +23,7 @@ const users = [
 		status: "ACTIVE"
 	},
 	{
-		id: 2,
+		id: nextId(),
 		name: "Guilherme",
 		email: "guilhermebromonschenkel@gmail.com",
 		age: 22,
@@ -27,8 +31,8 @@ const users = [
 		status: "INACTIVE"
 	},
 	{
-		id: 3,
-		name: "Daniella",
+		id: nextId(),
+		name: "Daniela",
 		email: "dani@gmail.com",
 		age: 19,
 		profile_id: 1,
@@ -36,4 +40,4 @@ const users = [
 	}
 ]
 
-module.exports = { users, profiles }
+module.exports = { users, profiles, nextId }

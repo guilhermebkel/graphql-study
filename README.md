@@ -8,6 +8,7 @@ An example of a web application made with graphql
 - [ Querying data in GraphQL](#querying-data-in-graphql)
 - [ Querying batch data in GraphQL](#querying-batch-data-in-graphql)
 - [ Basic folder structure ](#basic-folder-structure)
+- [ Changing data in GraphQL](#changing-data-in-graphql)
 
 <a name="introduction-to-graphql"></a>
 
@@ -113,7 +114,7 @@ profile(user) {
 
 When you get into the playground mode, you'll be able to query this data that way:
 ```graphql
-{
+query {
 	users {
 		id
 		name
@@ -200,11 +201,20 @@ src
 │   │	index.graphql
 │   │	user.graphql
 │   │	query.graphql
+│   │	mutation.graphql
 │   ...
 └───resolvers
 │   │	index.js
 │   │	user.js
 │   │	query.js
+│   │	mutation.js
 |   ...
 ...
 ```
+
+<a name="changing-data-in-graphql"></a>
+
+## Changing data in GraphQL
+Since we use the **query** method to fetch data in GraphQL, we can modify data by using the **mutation** method.
+
+So, the same way we create a schema and resolver for **query**, we need to create a new one for **mutation**. The difference is that you will change data on the last one and fetch data on the other.
