@@ -1,6 +1,6 @@
 type Mutation {
 	createUser(data: UserInput!): User!
-	deleteUser(id: Int): User!
+	deleteUser(id: Int): User
 	changeUser(id: Int, data: UserInput!): User!
 	createProfile(data: ProfileInput!): Profile!
 	deleteProfile(id: Int): Profile
