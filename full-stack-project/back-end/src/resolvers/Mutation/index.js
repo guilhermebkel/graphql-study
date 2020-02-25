@@ -1,3 +1,4 @@
 const UserMutation = require("./User")
+const ProfileMutation = require("./Profile")
 
-module.exports = { ...UserMutation }
+module.exports = { ...UserMutation, ...ProfileMutation }
