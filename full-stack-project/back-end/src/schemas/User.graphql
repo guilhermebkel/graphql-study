@@ -4,24 +4,6 @@ type Profile {
 	label: String
 }
 
-enum UserStatus {
-	ACTIVE
-	INACTIVE
-	BLOCKED
-}
-
-input UserInput {
-	name: String
-	email: String
-	password: String
-	profiles: [ProfileFilter]
-}
-
-input UserFilter {
-	id: Int
-	email: String
-}
-
 input ProfileInput {
 	name: String
 	label: String
@@ -32,13 +14,33 @@ input ProfileFilter {
 	name: String
 }
 
+input UserInput {
+	name: String
+	email: String
+	password: String
+	profiles: [ProfileFilter]
+}
+
+input RegisterUserInput {
+	name: String!
+	email: String!
+	password: String!
+}
+
+input UserLoginInput {
+	email: String
+	password: String
+}
+
+input UserFilter {
+	id: Int
+	email: String
+}
+
 type User {
 	id: Int
 	name: String!
 	email: String!
-	age: Int
-	income: Float
-	premium: Boolean
+	token: String
 	profiles: [Profile]
-	userStatus: UserStatus
 }

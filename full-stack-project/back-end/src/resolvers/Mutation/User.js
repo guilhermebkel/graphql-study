@@ -1,8 +1,12 @@
+const bcrypt = require("bcrypt-nodejs")
+
 const database = require("../../lib/database")
 
-module.exports = {
+const { profiles: getUserProfiles } = require("../Type/User")
+
+const Mutations = {
 	async createUser(_, { data }) {
-		const user = database("users").where({ email: data.email }).first()
+		const user = await database("users").where({ email: data.email }).first()
 
 		if (user) {
 			throw new Error("User already exists!")
@@ -10,18 +14,24 @@ module.exports = {
 
 		const profileIds = []
 
-		if (data.profiles && data.profiles.length) {
-			for (let key of Object.keys(data.profiles)) {
-				if (key === "id") {
-					profileIds.push(data.profiles[key])
-				} else if (key === "name") {
-					const { id } = await database("profiles").where({ name: data.profiles[key] }).first()
-					profileIds.push(id)
-				}
-			}
-
-			delete data.profiles
+		if (!data.profiles || !data.profiles.length) {
+			data.profiles = [{ name: "common" }]
 		}
+
+		for (let profile of data.profiles) {
+			if (profile.id) {
+				profileIds.push(profile.id)
+			} else if (profile.name) {
+				const { id } = await database("profiles").where({ name: profile.name }).first()
+				profileIds.push(id)
+			}
+		}
+
+		delete data.profiles
+
+		const salt = bcrypt.genSaltSync()
+
+		data.password = bcrypt.hashSync(data.password, salt)
 
 		const [id] = await database("users").insert({ email: data.email, password: data.password, name: data.name}).returning("id")
 
@@ -29,7 +39,10 @@ module.exports = {
 
 		const newUser = await database("users").where({ id }).first()
 
-		return newUser
+		return {
+			...newUser,
+			profiles: await getUserProfiles(newUser)
+		}
 	},
 	async deleteUser(_, { id }) {
 		const user = await database("users").where({ id }).first()
@@ -50,11 +63,11 @@ module.exports = {
 			if (data.profiles && data.profiles.length) {
 				await database("users_profiles").where({ user_id: id }).delete()
 
-				for (let key of Object.keys(data.profiles)) {
-					if (key === "id") {
-						profileIds.push(data.profiles[key])
-					} else if (key === "name") {
-						const { id } = await database("profiles").where({ name: data.profiles[key] }).first()
+				for (let profile of data.profiles) {
+					if (profile.id) {
+						profileIds.push(profile.id)
+					} else if (profile.name) {
+						const { id } = await database("profiles").where({ name: profile.name }).first()
 						profileIds.push(id)
 					}
 				}
@@ -68,5 +81,17 @@ module.exports = {
 		} else {
 			return null
 		}
+	},
+	async registerUser(_, { data }) {
+		return await Mutations.createUser(_, {
+			data: {
+				name: data.name,
+				email: data.email,
+				password: data.password,
+				profiles: null
+			}
+		})
 	}
 }
+
+module.exports = Mutations

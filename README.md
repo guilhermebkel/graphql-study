@@ -4,11 +4,12 @@ An example of a web application made with graphql
 ## Summary
 
 - [ Introduction to GraphQL ](#introduction-to-graphql)
-- [ Working with types](#working-with-types)
-- [ Querying data](#querying-data)
-- [ Querying batch data](#querying-batch-data)
+- [ Working with types ](#working-with-types)
+- [ Querying data ](#querying-data)
+- [ Querying batch data ](#querying-batch-data)
 - [ Basic folder structure ](#basic-folder-structure)
-- [ Changing data](#changing-data)
+- [ Changing data ](#changing-data)
+- [ Using middlewares ](#using-middlewares)
 
 <a name="introduction-to-graphql"></a>
 
@@ -206,6 +207,10 @@ src
 │
 └───resolvers
 │   │
+│   └───Common
+│   │   │   User.js
+│   │   ...
+│   │
 │   └───Mutation
 │   │   │   index.js
 │   │   │   User.js
@@ -231,3 +236,33 @@ src
 Since we use the **query** method to fetch data, we can modify data by using the **mutation** method.
 
 So, the same way we create a schema and resolver for **query**, we need to create a new one for **mutation**. The difference is that you will change data on the last one and fetch data on the other.
+
+<a name="using-middlewares"></a>
+
+## Using middlewares
+
+Middlewares are commonly used on famous frameworks such as **ExpressJS**. They're really useful for managing business logic through requests (per example auth verification).
+
+When dealing with GraphQL we can use middlewares as well but here they're called **Context**.
+
+So, if I want to create a simple "console.log("hello world")" context to be executed before every query/mutation, I have to do the following:
+
+```js
+const context = (args) => {
+	// args come with data such as 'req' and other stuffs
+
+	console.log("Hello World")
+}
+
+const { ApolloServer } = require("apollo-server")
+
+const server = new ApolloServer({
+	typeDefs, // Schemas you defined previously
+	resolvers, // Resolvers you defined previously
+	context
+})
+
+server.listen().then(({ url }) => {
+	console.log(`Running at ${url}`)
+})
+```

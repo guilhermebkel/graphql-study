@@ -1,4 +1,5 @@
 type Mutation {
+	registerUser(data: RegisterUserInput!): User!
 	createUser(data: UserInput!): User!
 	deleteUser(id: Int): User
 	changeUser(id: Int, data: UserInput!): User!
