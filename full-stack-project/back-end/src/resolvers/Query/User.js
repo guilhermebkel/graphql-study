@@ -21,12 +21,16 @@ module.exports = {
 
 		return loggedInUser
 	},
-	async users() {
+	async users(_, {}, context) {
+		context && context.validateAdmin()
+
 		const users = await database("users")
 
 		return users
 	},
-	async user(_, { filter }) {
+	async user(_, { filter }, context) {
+		context && context.validateUserFilter(filter)
+
 		if (!filter) {
 			return null
 		}

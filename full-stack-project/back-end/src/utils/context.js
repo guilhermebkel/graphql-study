@@ -6,11 +6,7 @@ module.exports = ({ req }) => {
 	let user = null
 	let admin = false
 
-	if (!authHeader) {
-		return { user, admin }
-	}
-
-	const [, authToken] = authHeader.split(" ")
+	const [, authToken] = (authHeader && authHeader.split(" ")) || ["", ""]
 
 	const authSecret = process.env.AUTH_SECRET
 
@@ -28,17 +24,38 @@ module.exports = ({ req }) => {
 		admin = user.profiles.includes("admin")
 	}
 
+	const authError = new Error("Unauthorized!")
+
 	return {
 		user,
 		admin,
 		validateUser() {
 			if (!user) {
-				throw new Error("Unauthenticated!")
+				throw authError
 			}
 		},
-		validateUser() {
+		validateAdmin() {
 			if (!admin) {
-				throw new Error("Unauthenticated!")
+				throw authError
+			}
+		},
+		validateUserFilter(filter) {
+			if (admin) {
+				return
+			}
+
+			if (!user) {
+				throw authError
+			}
+
+			const { id, email } = filter
+
+			if (id && id !== user.id) {
+				throw authError
+			}
+
+			if (email && email !== user.email) {
+				throw authError
 			}
 		}
 	}

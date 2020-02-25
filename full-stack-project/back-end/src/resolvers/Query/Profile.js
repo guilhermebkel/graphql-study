@@ -1,12 +1,16 @@
 const database = require("../../lib/database")
 
 module.exports = {
-	async profiles() {
+	async profiles(_, {}, context) {
+		context && context.validateAdmin()
+
 		const profiles = await database("profiles")
 
 		return profiles
 	},
-	async profile(_, { filter }) {
+	async profile(_, { filter }, context) {
+		context && context.validateUserFilter(filter)
+
 		if (!filter) {
 			return null
 		}

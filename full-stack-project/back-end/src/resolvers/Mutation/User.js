@@ -5,7 +5,9 @@ const database = require("../../lib/database")
 const { profiles: getUserProfiles } = require("../Type/User")
 
 const Mutations = {
-	async createUser(_, { data }) {
+	async createUser(_, { data }, context) {
+		context && context.validateAdmin()
+
 		const user = await database("users").where({ email: data.email }).first()
 
 		if (user) {
@@ -44,7 +46,9 @@ const Mutations = {
 			profiles: await getUserProfiles(newUser)
 		}
 	},
-	async deleteUser(_, { id }) {
+	async deleteUser(_, { id }, context) {
+		context && context.validateAdmin()
+
 		const user = await database("users").where({ id }).first()
 
 		if (user) {
@@ -56,11 +60,13 @@ const Mutations = {
 			return null
 		}
 	},
-	async changeUser(_, { id, data }) {
+	async changeUser(_, { id, data }, context) {
+		context && context.validateUserFilter({ id })
+
 		const user = await database("users").where({ id }).first()
 
 		if (user) {
-			if (data.profiles && data.profiles.length) {
+			if (context && context.admin && data.profiles && data.profiles.length) {
 				await database("users_profiles").where({ user_id: id }).delete()
 
 				for (let profile of data.profiles) {
